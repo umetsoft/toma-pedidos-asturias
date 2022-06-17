@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gesti&oacute;n Comercial Ventas | Registro de Pagos</title>
+    <!-- Meta tag para moviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Estilos incluyendo: Bootstrap, Font Icons, Plugins, etc.-->
+    <link rel="stylesheet" media="screen" href="css/vendor.min.css">
+    <link id="mainStyles" rel="stylesheet" media="screen" href="css/styles.min.css">
+    <link id="customStyles" rel="stylesheet" media="screen" href="css/custom.css">
+    <!-- FontAwesome-->
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/third-party/modernizr.min.js"></script>
+    <!-- Pagos -->
+    <link id="pagoStyles" rel="stylesheet" media="screen" href="css/pago.css">
+  </head>
+  <body>
+    <!-- Modal de busqueda avanzada de clientes -->
+    <div class="modal fade" id="modal-clientes" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">B&uacute;squeda avanzada de clientes</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <!-- Filtros -->
+            <div class="form-group row">
+              <div class="col-sm col-12">
+                <input type="text" id="filtro-cliente-modal" class="form-control form-control-sm" placeholder="C&oacute;digo o nombre del cliente">
+              </div>
+              <div class="col-sm-auto col-12 text-right pl-0">
+                <button type="button" class="btn btn-sm btn-info" id="modal-cliente-buscar">Buscar</button>
+              </div>
+            </div>
+            <!-- Lista de Clientes -->
+            <div class="search-results" id="busqueda-clientes"></div>
+            <!-- Paginado -->
+            <div class="entry-navigation">
+              <div class="column text-left"><a class="btn btn-outline-secondary btn-sm" href="#">
+                <i class="icon-arrow-left"></i> <span class="d-sm-inline d-none">Anterior</span>
+              </a></div>
+              <div class="column">
+                P&aacute;gina <strong id="pagina-cliente-actual">0</strong> de <strong id="pagina-cliente-total">0</strong>
+              </div>
+              <div class="column text-right"><a class="btn btn-outline-secondary btn-sm" href="#">
+                <span class="d-sm-inline d-none">Siguiente</span> <i class="icon-arrow-right"></i>
+              </a></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary btn-sm" type="button" id="aceptar-cliente">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de datos de clientes -->
+    <div class="modal fade" id="modal-datos-cliente" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="datos-cliente-titulo">Datos del Cliente</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row">
+              <div class="col-sm col-6">
+                <label>Nro. Documento: </label>
+                <input type="text" class="form-control form-control-sm" id="cliente-nro-doc"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+              <div class="col-sm col-6 datos-cliente-natural">
+                <label>Nombres: </label>
+                <input type="text" class="form-control form-control-sm" id="cliente-nombre"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+              <div class="col-sm col-6 datos-cliente-juridica">
+                <label>Razón social: </label>
+                <input type="text" class="form-control form-control-sm" id="cliente-razon-social"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+              <div class="col-sm col-6 datos-cliente-otros">
+                <label>Nombres: </label>
+                <input type="text" class="form-control form-control-sm" id="cliente-nombre-otros"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm col-6 datos-cliente-natural">
+                <label>Apellido Paterno</label>
+                <input type="text" class="form-control form-control-sm" id="cliente-apellido-paterno"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+              <div class="col-sm col-6 datos-cliente-natural">
+                <label>Apellido Materno</label>
+                <input type="text" class="form-control form-control-sm" id="cliente-apellido-materno"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm col-6">
+                <label>Telefono</label>
+                <input type="text" class="form-control form-control-sm" id="cliente-telefono">
+              </div>
+              <div class="col-sm col-6">
+                <label>Email</label>
+                <input type="text" class="form-control form-control-sm"
+                       oninput="this.value = this.value.toUpperCase()" id="cliente-email">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm col-4">
+                <label> Departamento</label>
+                <select id="direccion-departamento" class="form-control form-control-sm" required>
+                  <option value="" disabled selected></option>
+                  <option>Lima</option>
+                  <option>Callao</option>
+                  <option>Amazonas</option>
+                  <option>Áncash</option>
+                  <option>Apurímac</option>
+                  <option>Arequipa</option>
+                  <option>Ayacucho</option>
+                  <option>Cajamarca</option>
+                  <option>Cusco</option>
+                  <option>Huancavelica</option>
+                  <option>Huánuco</option>
+                  <option>Ica</option>
+                  <option>Junín</option>
+                  <option>La Libertad</option>
+                  <option>Lambayeque</option>
+                  <option>Huacho</option>
+                  <option>Loreto</option>
+                  <option>Madre de Dios</option>
+                  <option>Moquegua</option>
+                  <option>Pasco</option>
+                  <option>Piura</option>
+                  <option>Puno</option>
+                  <option>San Martín</option>
+                  <option>Tacna</option>
+                  <option>Tumbes</option>
+                  <option>Ucayali</option>
+                </select>
+              </div>
+              <div class="col-sm col-4">
+                <label for="direccion-provincia">Provincia</label>
+                <select id="direccion-provincia" class="form-control form-control-sm" required>
+                  <option value="" disabled selected></option>
+                  <option>Lima</option>
+                  <option>Barranca</option>
+                  <option>Cajatambo</option>
+                  <option>Canta</option>
+                  <option>Cañete</option>
+                  <option>Huaral</option>
+                  <option>Huarochirí</option>
+                  <option>Huaura</option>
+                  <option>Oyón</option>
+                  <option>Yauyos</option>
+                </select>
+              </div>
+              <div class="col-sm col-4">
+                <label for="direccion-distrito">Distrito</label>
+                <select id="direccion-distrito" class="form-control form-control-sm" required>
+                  <option value="" disabled selected></option>
+                  <option>Ancón</option>
+                  <option>Ate</option>
+                  <option>Barranco</option>
+                  <option>Breña</option>
+                  <option>Carabayllo</option>
+                  <option>Chaclacayo</option>
+                  <option>Chorrillos</option>
+                  <option>Cieneguilla</option>
+                  <option>Comas</option>
+                  <option>El Agustino</option>
+                  <option>Huaycán</option>
+                  <option>Independencia</option>
+                  <option>Jesús María</option>
+                  <option>La Molina</option>
+                  <option>La Victoria</option>
+                  <option>Lima</option>
+                  <option>Lince</option>
+                  <option>Los Olivos</option>
+                  <option>Lurigancho</option>
+                  <option>Lurín</option>
+                  <option>Magdalena del Mar</option>
+                  <option>Miraflores</option>
+                  <option>Pachacamac</option>
+                  <option>Pucusana</option>
+                  <option>Pueblo Libre</option>
+                  <option>Puente Piedra</option>
+                  <option>Punta Hermosa</option>
+                  <option>Punta Negra</option>
+                  <option>Rímac</option>
+                  <option>San Bartolo</option>
+                  <option>San Borja</option>
+                  <option>San Isidro</option>
+                  <option>San Juan de Lurigancho</option>
+                  <option>San Juan de Miraflores</option>
+                  <option>San Luis</option>
+                  <option>San Martín de Porres</option>
+                  <option>San Miguel</option>
+                  <option>Santa Anita</option>
+                  <option>Santa María del Mar</option>
+                  <option>Santa Rosa</option>
+                  <option>Santiago de Surco</option>
+                  <option>Surquillo</option>
+                  <option>Villa El Salvador</option>
+                  <option>Villa María del Triunfo</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-8">
+                <label> Direccion</label>
+                <input type="text" class="form-control form-control-sm" id="direccion-descripcion"
+                       oninput="this.value = this.value.toUpperCase()">
+              </div>
+              <div class="col-sm col-4">
+                <label>Tipo Direccion</label>
+                <select id="direccion-tipo" class="form-control form-control-sm" required>
+                  <option value="" disabled selected></option>
+                  <option>DESPACHO</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm col-12 text-left">
+                <label> Dirección de entrega: </label>
+              </div>
+              <div class="col-sm col-12 text-right pl-0">
+                <button type="button" class="btn btn-sm btn-info" id="agregar-direccion">Agregar Direccion</button>
+              </div>
+            </div>
+            <div class="search-results" id="listado-direcciones-cliente">
+              <!--
+              <div class="card">
+                <div class="row">
+                  <div class="col-auto checkbox-col">
+                    <div class="custom-control custom-radio">
+                      <input class="custom-control-input" type="radio" id="direccion-cliente-1" name="direcciones-cliente">
+                      <label class="custom-control-label" for="direccion-cliente-1"></label>
+                    </div>
+                  </div>
+                  <div class="col details-col">
+                    <div class="d-inline-block">
+                      <strong> Ubigeo: </strong>
+                      <span>LIMA - LIMA - MAGDALENA VIEJA</span>
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Direccion: </strong>
+                      <span>Av. Simon Bolivar 2150 E28 - dpto 303</span>
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Tipo Direccion: </strong>
+                      <span>Despacho</span>
+                      <span class="separator">|</span>
+                    </div>
+                  </div>
+                  <div class="col-auto buttons-col">
+                    <button class="btn btn-sm btn-danger">
+                      <i class="icon-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>-->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary btn-sm" type="button" id="aceptar-datos-cliente">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal para credito -->
+    <div class="modal fade modal-credito" id="modal-credito" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Crédito</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row">
+              <label class="col-sm-3 col-4 col-form-label">Cliente: </label>
+              <div class="col-sm-9 col-8">
+                <input type="text" class="form-control form-control-sm"
+                       value="QTC S.A.C" disabled>
+              </div>
+              <label class="col-sm-3 col-4 col-form-label">Línea de Crédito: </label>
+              <div class="col-sm-9 col-8">
+                <input type="text" class="form-control form-control-sm"
+                       value="2000" disabled>
+              </div>
+              <label class="col-sm-3 col-4 col-form-label">Importe: </label>
+              <div class="col-sm-9 col-8">
+                <input type="text" id="importe-modal-credito" class="form-control form-control-sm" disabled>
+              </div>
+              <label class="col-sm-3 col-4 col-form-label">Monto a pagar: </label>
+              <div class="col-sm-9 col-8">
+                <input type="text" id="entregado-modal-credito" class="form-control form-control-sm">
+              </div>
+              <label class="col-sm-3 col-4 col-form-label">Forma de pago: </label>
+              <div class="col-sm-9 col-8">
+                <select id="cuotas-modal-credito" class="form-control form-control-sm">
+                  <option value="1 cuota"> 1 Cuota</option>
+                  <option value="3 cuotas"> 3 Cuotas</option>
+                  <option value="6 cuotas"> 6 Cuotas</option>
+                  <option value="12 coutas"> 12 Cuotas</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+            <button class="btn btn-primary btn-sm" id="modal-credito-aceptar" type="submit">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal para vista de pdf -->
+    <div class="modal fade" id="modal-pdf" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Boleta: 01-00001</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <embed src="pdfs/demodoc.pdf" width="700" height="375" type='application/pdf'>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+            <button class="btn btn-primary btn-sm" id="aceptar-pdf-pagos" type="submit" data-dismiss="modal">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--      -->
+    <!-- Menu -->
+    <!--      -->
+    <div class="offcanvas-container" id="mobile-menu">
+      <div class="account-link">
+        <div class="user-ava"><img src="img/user.png" alt="Daniel Arana" title="Daniel Arana"></div>
+        <div class="user-info">
+          <h6 class="user-name">Daniel Arana</h6>
+          <span class="text-sm text-white opacity-60">Usuario 1</span>
+        </div>
+      </div>
+      <nav class="offcanvas-menu">
+        <ul class="menu">
+          <li class="active"><a href="usuario-ventas.html">&Oacute;rdenes de Ventas</a></li>
+          <li class="has-children">
+            <span><a href="usuario-cajas.html">Apertura y cierre de cajas</a><span class="sub-menu-toggle"></span></span>
+            <ul class="offcanvas-submenu">
+              <li><a href="usuario-caja-apertura.html">Apertura de caja</a></li>
+              <li><a href="usuario-caja-cierre.html">Cierre de caja</a></li>
+            </ul>
+          </li>
+          <li class="offcanvas-header"><h3 class="offcanvas-title">Opciones de usuario</h3></li>
+          <li><a href="perfil.html">Ver perfil</a></li>
+          <li><a href="index.html">Cerrar sesi&oacute;n</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!--        -->
+    <!-- Header -->
+    <!--        -->
+    <div class="topbar d-none"></div>
+    <header class="navbar navbar-sticky">
+      <div class="site-branding"><div class="inner">
+        <a class="offcanvas-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
+      </div></div>
+      <h3 class="navbar-title with-menu">
+        <span class="d-lg-inline d-none">Gesti&oacute;n</span>
+        <span class="d-sm-inline d-none">Comercial Ventas</span>
+        <span class="d-lg-inline d-none">- Registro de Pagos</span>
+      </h3>
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="inner">
+          <div class="tools">
+            <div class="tienda">Tienda 1</div>
+            <div class="clock"></div>
+            <div class="account">
+              <!-- Icono del usuario -->
+              <a href="perfil.html"></a>
+              <i class="icon-head"></i> <span class="account-label">Usuario 1</span>
+              <ul class="toolbar-dropdown">
+                <!-- Breve info del usuario -->
+                <li class="sub-menu-user">
+                  <div class="user-ava"><img src="img/user.png" alt="Daniel Arana" title="Daniel Arana"></div>
+                  <div class="user-info">
+                    <h6 class="user-name">Daniel Arana</h6>
+                    <span class="text-xs text-muted">Usuario</span>
+                  </div>
+                </li>
+                <!-- Menu del usuario -->
+                <li><a href="perfil.html"><i class="icon-cog"></i>Configurar perfil</a></li>
+                <li><a href="index.html"><i class="icon-unlock"></i>Cerrar sesi&oacute;n</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!--           -->
+    <!-- Contenido -->
+    <!--           -->
+    <div class="offcanvas-wrapper">
+      <div class="container-fluid">
+        <!-- Filtros y botones de pagos -->
+        <div class="search-box">
+          <div class="form-group row">
+            <!-- Caja -->
+            <div class="col-xl-2 col-md-4 col-6">
+              <label for="filtro-cliente">Caja:</label>
+              <select id="filtro-caja" class="form-control form-control-sm" required>
+                <option value="" disabled selected>Buscar Caja</option>
+                <option value="1">Caja 1</option>
+                <option value="2">Caja 2</option>
+                <option value="2">Caja 3</option>
+                <option value="2">Caja 4</option>
+              </select>
+            </div>
+            <!-- Boton pago soles -->
+            <div class="col-xl-2 col-md-3 col-6">
+              <button class="btn btn-sm btn-dark btn-pago"
+                      data-value="Efectivo">S/.</button>
+            </div>
+            <div class="col-xl-2 col-md-3 col-6">
+              <button class="btn btn-sm btn-dark btn-pago"
+                      data-value="Dólares">$</button>
+            </div>
+            <div class="col-xl-2 col-md-3 col-6">
+              <button class="btn btn-sm btn-dark btn-pago"
+                      data-value="Tarjeta Visa"><i class="fab fa-cc-visa"></i></button>
+            </div>
+            <div class="col-xl-2 col-md-3 col-6">
+              <button class="btn btn-sm btn-dark btn-pago"
+                      data-value="Tarjeta Mastercard"><i class="fab fa-cc-mastercard"></i></button>
+            </div>
+            <div class="col-xl-2 col-md-3 col-6">
+              <button class="btn btn-sm btn-dark btn-pago btn-pago-credito"
+                      data-toggle="modal" data-target="#modal-credito"
+                      data-value="Crédito">CREDITO</button>
+            </div>
+          </div>
+          <div class="form-group row">
+            <!-- Buscar cliente -->
+            <div class="col-xl-12 col-12 filter-group">
+              <label for="filtro-cliente">Cliente:</label>
+              <input type="text" id="filtro-cliente" class="form-control form-control-sm" placeholder="Buscar DOI del cliente...">
+              <div class="button-container with-label second-button" data-toggle="tooltip" data-placement="top" data-original-title="Limpiar"
+                   id="limpiar-filtro-cliente">
+                <button type="button" class="btn btn-sm btn-danger"><i class="icon-trash"></i></button>
+              </div>
+              <div class="button-container with-label" data-toggle="tooltip" data-placement="top" data-original-title="Ver más"
+                   id="mostrar-datos-cliente">
+                <button type="button" class="btn btn-sm btn-info"><i class="icon-eye"></i></button>
+              </div>
+              <div class="button-container with-label" data-toggle="tooltip" data-placement="top" data-original-title="B&uacute;squeda avanzada"
+                   id="buscar-cliente">
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-clientes"><i class="icon-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-dark btn-block" id="filter-button">Ver filtros</button>
+        <!-- Listado de pagos -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="search-results" id="lista-pagos">
+              <div class="row">
+                <div class="col align-self-center">
+                  <h5 class="mb-0">
+                    <strong> Boleta:</strong> 01-000001
+                    <span class="separator">|</span>
+                    <strong> Importe :</strong> S/.1000.00
+                    <span class="separator">|</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col align-self-center"><h5 class="mb-0">Listado de pagos</h5></div>
+              </div>
+              <!-- Pagos -->
+              <!--
+              <div class="card">
+                <div class="row">
+                  <div class="col details-col">
+                    <div class="payment-box">
+                      <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Forma de pago: </label>
+                        <label class="col-md-2 col-form-label forma-pago">Efectivo</label>
+                        <label class="col-md-2 col-form-label">| Importe: </label>
+                        <label class="col-md-1 col-form-label importe-pago">100.00</label>
+                        <label class="col-md-2 col-form-label">| Entregado: </label>
+                        <div class="col-md-2">
+                          <input type="text" 
+                                 class="form-control form-control-sm entregado-pago">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-auto buttons-col">
+                    <button class="btn btn-sm btn-danger eliminar-pago"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            data-original-title="Eliminar">
+                      <i class="icon-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              -->
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="grid row grid-pago">
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="200">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>200</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="100">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>100</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="50">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>50</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="20">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>20</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="10">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>10</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="5">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>5</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="2">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>2</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="1">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>1</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0.50">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>0.5</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0.20">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>0.2</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0.10">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>0.1</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0.05">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>0.05</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0.02">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>0.02</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0.01">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong>0.01</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell col-md-2">
+                <div class="square bg-primary"
+                     data-value="0">
+                  <div class="d-table">
+                    <div class="d-table-cell">
+                      <strong></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="detail-totals">
+              <div class="form-group row">
+                <!-- Importe Venta -->
+                <label class="col-lg-2 col-sm-2 col-4 col-form-label">Importe Venta: </label>
+                <div class="col-lg-4 col-sm-4 col-8">
+                  <input type="text" id="importe-venta" class="form-control form-control-sm"  disabled>
+                </div>
+                <!-- Total Cobrado -->
+                <label class="col-lg-2 col-sm-2 col-4 col-form-label">Total Cobrado: </label>
+                <div class="col-lg-4 col-sm-4 col-8">
+                  <input type="text" id="total-cobrado" class="form-control form-control-sm"  disabled>
+                </div>
+                <!-- Importe Redondeo -->
+                <label class="col-lg-2 col-sm-2 col-4 col-form-label">Importe Redondeo: </label>
+                <div class="col-lg-4 col-sm-4 col-8">
+                  <input type="text" id="importe-redondeo" class="form-control form-control-sm" disabled>
+                </div>
+                <!-- Faltante -->
+                <label class="col-lg-2 col-sm-2 col-4 col-form-label">Faltante: </label>
+                <div class="col-lg-4 col-sm-4 col-8">
+                  <input type="text" id="faltante" class="form-control form-control-sm"  disabled>
+                </div>
+                <!-- Recargo pago -->
+                <label class="col-lg-2 col-sm-2 col-4 col-form-label">Recargo Pago: </label>
+                <div class="col-lg-4 col-sm-4 col-8">
+                  <input type="text" id="recargo-pago" class="form-control form-control-sm"  disabled>
+                </div>
+                <!-- Vuelto -->
+                <label class="col-lg-2 col-sm-2 col-4 col-form-label">Vuelto: </label>
+                <div class="col-lg-4 col-sm-4 col-8">
+                  <input type="text" id="vuelto" class="form-control form-control-sm form-control-danger" disabled>
+                </div>
+                
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <button class="btn btn-sm btn-danger">Cancelar</button>
+              <button class="btn btn-sm btn-primary"
+                      id="aceptar-pagos">
+                      Aceptar</button>
+            </diV>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Boton para volver arriba -->
+    <a class="scroll-to-top-btn" href="#">
+      <i class="icon-arrow-up"></i>
+    </a>
+    <!-- Backdrop -->
+    <div class="site-backdrop"></div>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script type="text/javascript" src="js/third-party/vendor.min.js"></script>
+    <script type="text/javascript" src="js/third-party/scripts.min.js"></script>
+    <script type="text/javascript" src="js/utilidades.js"></script>
+    <script type="text/javascript" src="js/third-party/accounting.min.js"></script>
+    <script type="text/javascript" src="js/ventas2.js"></script>
+    <!-- Pagos -->
+    <script type="text/javascript" src="js/pagos.js"></script>
+  </body>
+</html>

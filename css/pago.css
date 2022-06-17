@@ -1,0 +1,43 @@
+.payment-box {
+  display: none;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.payment-box .form-group label{
+  padding-left: 15px;
+}
+
+.modal-credito .form-group label{
+  padding-left: 15px;
+}
+
+
+@media screen and (min-width: 768px) {
+	.payment-box {
+		display: block !important;
+	}
+	#filter-button {
+		display: none;
+	}
+}
+
+/*
+ * Estilos para vista de pagos
+ */
+.btn-pago {
+	min-width: 100%;
+	font-size: 2rem;
+}
+
+.btn-pago-credito {
+	font-size: 1rem;
+}
+
+.btn-pago i {
+	padding-bottom: 6px;
+}
+
+
+
+

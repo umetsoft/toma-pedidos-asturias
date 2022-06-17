@@ -1,0 +1,11 @@
+.grid-index .square{
+  background-color: #e6f8ff; !important
+}
+
+.grid-index .square-anterior{
+  font-size: 50px;
+}
+
+.square-anterior i{
+  vertical-align: text-top;
+}

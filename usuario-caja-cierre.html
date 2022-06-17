@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gesti&oacute;n Comercial Ventas | Nuevo cierre de cajas</title>
+    <!-- Meta tag para moviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Estilos incluyendo: Bootstrap, Font Icons, Plugins, etc.-->
+    <link rel="stylesheet" media="screen" href="css/vendor.min.css">
+    <link id="mainStyles" rel="stylesheet" media="screen" href="css/styles.min.css">
+    <link id="customStyles" rel="stylesheet" media="screen" href="css/custom.css">
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/third-party/modernizr.min.js"></script>
+  </head>
+  <body>
+    <!--      -->
+    <!-- Menu -->
+    <!--      -->
+    <div class="offcanvas-container" id="mobile-menu">
+      <div class="account-link">
+        <div class="user-ava"><img src="img/user.png" alt="Daniel Arana" title="Daniel Arana"></div>
+        <div class="user-info">
+          <h6 class="user-name">Daniel Arana</h6>
+          <span class="text-sm text-white opacity-60">Usuario</span>
+        </div>
+      </div>
+      <nav class="offcanvas-menu">
+        <ul class="menu">
+          <li><a href="usuario-ventas.html">&Oacute;rdenes de Ventas</a></li>
+          <li class="has-children active">
+            <span><a href="usuario-cajas.html">Apertura y cierre de cajas</a><span class="sub-menu-toggle"></span></span>
+            <ul class="offcanvas-submenu">
+              <li><a href="usuario-caja-apertura.html">Apertura de caja</a></li>
+              <li class="active"><a href="usuario-caja-cierre.html">Cierre de caja</a></li>
+            </ul>
+          </li>
+          <li class="offcanvas-header"><h3 class="offcanvas-title">Opciones de usuario</h3></li>
+          <li><a href="perfil.html">Ver perfil</a></li>
+          <li><a href="index.html">Cerrar sesi&oacute;n</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!--        -->
+    <!-- Header -->
+    <!--        -->
+    <div class="topbar d-none"></div>
+    <header class="navbar navbar-sticky">
+      <div class="site-branding"><div class="inner">
+        <a class="offcanvas-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
+      </div></div>
+      <h3 class="navbar-title with-menu">
+        <span class="d-sm-inline d-none">Gesti&oacute;n Comercial Ventas</span>
+        <span class="d-lg-inline d-none">- Nuevo cierre de cajas</span>
+      </h3>
+      <!-- Toolbar -->
+      <div class="toolbar"><div class="inner"><div class="tools">
+        <div class="clock"></div>
+        <div class="account">
+          <!-- Icono del usuario -->
+          <a href="perfil.html"></a>
+          <i class="icon-head"></i> <span class="account-label">Usuario</span>
+          <ul class="toolbar-dropdown">
+            <!-- Breve info del usuario -->
+            <li class="sub-menu-user">
+              <div class="user-ava"><img src="img/user.png" alt="Daniel Arana" title="Daniel Arana"></div>
+              <div class="user-info">
+                <h6 class="user-name">Daniel Arana</h6>
+                <span class="text-xs text-muted">Usuario</span>
+              </div>
+            </li>
+            <!-- Menu del usuario -->
+            <li><a href="perfil.html"><i class="icon-cog"></i>Configurar perfil</a></li>
+            <li><a href="index.html"><i class="icon-unlock"></i>Cerrar sesi&oacute;n</a></li>
+          </ul>
+        </div>
+      </div></div></div>
+    </header>
+    <!--           -->
+    <!-- Contenido -->
+    <!--           -->
+    <div class="offcanvas-wrapper">
+      <div class="container-fluid">
+        <!-- Formulario de busqueda -->
+        <div class="form-group row">
+          <div class="col-lg-3 col-sm-5 col-12">
+            <label for="tienda">Tienda:</label>
+            <select id="tienda" class="form-control form-control-sm" required>
+              <option value="" disabled selected>Nombre de tienda</option>
+            </select>
+          </div>
+          <div class="col-lg-2 col-sm-4 col-7">
+            <label for="apertura-fecha">Fecha de apertura:</label>
+            <input type="text" id="apertura-fecha" class="form-control form-control-sm date-input" placeholder="Fecha de apertura">
+          </div>
+          <div class="col-lg-2 col-sm-3 col-5 align-self-end">
+            <input type="text" id="apertura-hora" class="form-control form-control-sm time-input" placeholder="Hora de apertura">
+          </div>
+          <div class="col-lg-5 col-12">
+            <label for="apertura-responsable">Responsable de apertura:</label>
+            <input type="text" id="apertura-responsable" class="form-control form-control-sm" placeholder="Responsable de apertura">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-3 col-sm-5 col-12">
+            <label for="caja">Caja:</label>
+            <select id="caja" class="form-control form-control-sm" required>
+              <option value="" disabled selected>Nombre de caja</option>
+            </select>
+          </div>
+          <div class="col-lg-2 col-sm-4 col-7">
+            <label for="apertura-fecha">Fecha de cierre:</label>
+            <input type="text" id="cierre-fecha" class="form-control form-control-sm date-input" placeholder="Fecha de cierre">
+          </div>
+          <div class="col-lg-2 col-sm-3 col-5 align-self-end">
+            <input type="text" id="cierre-hora" class="form-control form-control-sm time-input" placeholder="Hora de cierre">
+          </div>
+          <div class="col-lg-5 col-12">
+            <label for="cierre-responsable">Responsable de cierre:</label>
+            <input type="text" id="cierre-responsable" class="form-control form-control-sm" placeholder="Responsable de cierre">
+          </div>
+        </div>
+        <!-- Detalles de cierre -->
+        <div class="row">
+          <div class="col-md-6 col-12"><h4 class="mb-0">Detalles de cierre</h4></div>
+          <div class="col-md-2 col-4 align-self-end text-center mt-md-0 mt-1">
+            <strong>S/. <span class="separator">|</span> <a href="#" class="">US$</a></strong>
+          </div>
+          <div class="col-md-2 col-4 align-self-end text-center mt-md-0 mt-1"><strong>Cierre</strong></div>
+          <div class="col-md-2 col-4 align-self-end text-center mt-md-0 mt-1"><strong>Diferencia</strong></div>
+        </div>
+        <!-- Detalle 1 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>1. Apertura de caja</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="70,000.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="70,000.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="0.00" disabled>
+          </div>
+        </div>
+        <!-- Detalle 2 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>2. Entradas de dinero</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="200.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="200.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="0.00" disabled>
+          </div>
+        </div>
+        <!-- Detalle 3 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>3. (Salidas de dinero)</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="(100.00)" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="(100.00)" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="0.00" disabled>
+          </div>
+        </div>
+        <!-- Detalle 4 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>4. Cobros en efectivo</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="5,000.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" id="cobro-efectivo" placeholder="Monto de cierre">
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right text-danger" value="(5,000.00)" disabled>
+          </div>
+        </div>
+        <!-- Detalle 5 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>5. Cobros con tarjeta de cr&eacute;dito Visa</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="1,000.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" id="cobro-visa" placeholder="Monto de cierre">
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right text-danger" value="(1,000.00)" disabled>
+          </div>
+        </div>
+        <!-- Detalle 6 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>6. Cobros con tarjeta de cr&eacute;dito MasterCard</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="500.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" id="cobro-mastercard" placeholder="Monto de cierre">
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right text-danger" value="(500.00)" disabled>
+          </div>
+        </div>
+        <!-- Detalle 7 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>7. Cobros con l&iacute;nea de cr&eacute;dito</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="100.00" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" id="cobro-linea" placeholder="Monto de cierre">
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right text-danger" value="(100.00)" disabled>
+          </div>
+        </div>
+        <!-- Detalle 7 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>8. (Devoluciones en efectivo)</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="(10.00)" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" id="cobro-linea" placeholder="Monto de cierre">
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right text-danger" value="(10.00)" disabled>
+          </div>
+        </div>
+        <!-- Detalle 7 -->
+        <div class="row mt-2">
+          <div class="col-md-6 col-12 align-self-center"><strong>9. (Devoluciones con tarjeta de cr&eacute;dito)</strong></div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" value="(500.00)" disabled>
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right" id="cobro-linea" placeholder="Monto de cierre">
+          </div>
+          <div class="col-md-2 col-4">
+            <input type="text" class="form-control form-control-sm text-right text-danger" value="(500.00)" disabled>
+          </div>
+        </div>
+        <!-- Botones -->
+        <div class="text-center">
+          <a class="btn btn-sm btn-dark mt-2" href="usuario-cajas.html?borrador">Grabar borrador</a>
+          <a class="btn btn-sm btn-primary mt-2" href="usuario-cajas.html?grabar">Grabar</a>
+          <a class="btn btn-sm btn-outline-secondary mt-2" href="usuario-cajas.html">Cancelar</a>
+        </div>
+      </div>
+    </div>
+    <!-- Boton para volver arriba -->
+    <a class="scroll-to-top-btn" href="#">
+      <i class="icon-arrow-up"></i>
+    </a>
+    <!-- Backdrop -->
+    <div class="site-backdrop"></div>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script type="text/javascript" src="js/third-party/vendor.min.js"></script>
+    <script type="text/javascript" src="js/third-party/scripts.min.js"></script>
+    <script type="text/javascript" src="js/utilidades.js"></script>
+  </body>
+</html>

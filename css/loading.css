@@ -1,0 +1,29 @@
+/*
+.iziToast-info>.iziToast-body .iziToast-title{
+  color:#39bfe6; !important
+}
+
+.iziToast-info>.iziToast-body .iziToast-message{
+  margin-bottom: 0px;
+  margin-top: 5px;
+  color:#39bfe6; !important
+}
+*/
+
+
+@keyframes rotate-continuous {
+  100% { transform:  rotateZ(360deg) }
+}
+
+.continuousSpinner {
+  animation: rotate-continuous 0.6s 0s infinite linear;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+

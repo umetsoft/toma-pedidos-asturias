@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gesti&oacute;n Comercial Ventas | Documentos por despachar</title>
+    <!-- Meta tag para moviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Estilos incluyendo: Bootstrap, Font Icons, Plugins, etc.-->
+    <link rel="stylesheet" media="screen" href="css/vendor.min.css">
+    <link id="mainStyles" rel="stylesheet" media="screen" href="css/styles.min.css">
+
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="css/bootstrap-datetimepicker.min.css">
+
+    <link id="customStyles" rel="stylesheet" media="screen" href="css/custom.css">
+    <link id="docsStyles" rel="stylesheet" media="screen" href="css/listado-documentos.css">
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/third-party/modernizr.min.js"></script>
+  </head>
+  <body>
+    <!-- Modal para vista de pdf -->
+    <div class="modal fade" id="modal-despacho" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Despachar</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <embed src="pdfs/demodoc.pdf" width="700" height="375" type='application/pdf'>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+            <button class="btn btn-primary btn-sm" id="aceptar-pdf-despacho" type="submit" data-dismiss="modal">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de busqueda avanzada de articulos -->
+    <div class="modal fade" id="modal-articulos" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">B&uacute;squeda avanzada de art&iacute;culos</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <!-- Filtros -->
+            <div class="form-group row">
+              <div class="col-sm col-12">
+                <input type="text" id="filtro-articulo-modal" class="form-control form-control-sm" placeholder="C&oacute;digo, nombre, fabricante o proveedor del art&iacute;culo">
+              </div>
+              <div class="col-sm-auto col-12 text-right pl-0">
+                <button type="button" class="btn btn-sm btn-info" id="modal-articulo-buscar">Buscar</button>
+              </div>
+            </div>
+            <!-- Lista de articulos -->
+            <div class="search-results" id="busqueda-articulos"></div>
+            <!-- Paginado -->
+            <div class="entry-navigation">
+              <div class="column text-left"><a class="btn btn-outline-secondary btn-sm" href="#">
+                <i class="icon-arrow-left"></i> <span class="d-sm-inline d-none">Anterior</span>
+              </a></div>
+              <div class="column">
+                P&aacute;gina <strong id="pagina-articulo-actual">0</strong> de <strong id="pagina-articulo-total">0</strong>
+              </div>
+              <div class="column text-right"><a class="btn btn-outline-secondary btn-sm" href="#">
+                <span class="d-sm-inline d-none">Siguiente</span> <i class="icon-arrow-right"></i>
+              </a></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary btn-sm" type="button" id="agregar-articulos">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de busqueda avanzada de clientes -->
+    <div class="modal fade" id="modal-clientes" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">B&uacute;squeda avanzada de clientes</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary btn-sm" type="button">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--      -->
+    <!-- Menu -->
+    <!--      -->
+    <div class="offcanvas-container" id="mobile-menu">
+      <div class="account-link">
+        <div class="user-ava"><img src="img/user.png" alt="Daniel Arana" title="Daniel Arana"></div>
+        <div class="user-info">
+          <h6 class="user-name">Daniel Arana</h6>
+          <span class="text-sm text-white opacity-60">Usuario 3</span>
+        </div>
+      </div>
+      <nav class="offcanvas-menu">
+        <ul class="menu">
+          <li class="active"><a href="usuario-ventas.html">&Oacute;rdenes de Ventas</a></li>
+          <li class="has-children">
+            <span><a href="usuario-cajas.html">Apertura y cierre de cajas</a><span class="sub-menu-toggle"></span></span>
+            <ul class="offcanvas-submenu">
+              <li><a href="usuario-caja-apertura.html">Apertura de caja</a></li>
+              <li><a href="usuario-caja-cierre.html">Cierre de caja</a></li>
+            </ul>
+          </li>
+          <li class="offcanvas-header"><h3 class="offcanvas-title">Opciones de usuario</h3></li>
+          <li><a href="perfil.html">Ver perfil</a></li>
+          <li><a href="index.html">Cerrar sesi&oacute;n</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!--        -->
+    <!-- Header -->
+    <!--        -->
+    <div class="topbar d-none"></div>
+    <header class="navbar navbar-sticky">
+      <div class="site-branding"><div class="inner">
+        <a class="offcanvas-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
+      </div></div>
+      <h3 class="navbar-title with-menu">
+        <span class="d-lg-inline d-none">Gesti&oacute;n Comercial Ventas - Documentos por despachar</span>
+        <span class="d-lg-none d-sm-inline d-none">Comercial Ventas</span>
+      </h3>
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="inner">
+          <div class="tools">
+            <div class="tienda">Tienda 1</div>
+            <div class="clock"></div>
+            <div class="account">
+              <!-- Icono del usuario -->
+              <a href="perfil.html"></a>
+              <i class="icon-head"></i> <span class="account-label">Usuario 3</span>
+              <ul class="toolbar-dropdown">
+                <!-- Breve info del usuario -->
+                <li class="sub-menu-user">
+                  <div class="user-ava"><img src="img/user.png" alt="Daniel Arana" title="Daniel Arana"></div>
+                  <div class="user-info">
+                    <h6 class="user-name">Daniel Arana</h6>
+                    <span class="text-xs text-muted">Usuario</span>
+                  </div>
+                </li>
+                <!-- Menu del usuario -->
+                <li><a href="perfil.html"><i class="icon-cog"></i>Configurar perfil</a></li>
+                <li><a href="index.html"><i class="icon-unlock"></i>Cerrar sesi&oacute;n</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!--           -->
+    <!-- Contenido -->
+    <!--           -->
+    <div class="offcanvas-wrapper">
+      <div class="container-fluid">
+        <!-- Formulario de filtro -->
+        <form class="search-box">
+          <div class="form-group row">
+            <!-- Seleccionar Caja -->
+            <div class="col-xl-2 col-md-4 col-6">
+              <select id="filtro-caja" class="form-control form-control-sm" required>
+                <option value="" disabled selected>Seleccionar Caja...</option>
+                <option value="1">Caja 1</option>
+                <option value="2">Caja 2</option>
+                <option value="3">Caja 3</option>
+                <option value="4">Caja 4</option>
+              </select>
+            </div>
+            <!-- Seleccionar Tipo Documento -->
+            <div class="col-xl-2 col-md-4 col-6">
+              <select id="filtro-caja" class="form-control form-control-sm" required>
+                <option value="" disabled selected>Tipo Documento...</option>
+                <option value="1">Todos</option>
+                <option value="2">Boleta</option>
+                <option value="3">Factura</option>
+              </select>
+            </div>
+            <!-- Buscar Documento -->
+            <div class="col-xl-2 col-md-5 col-12 filter-group">
+              <input type="text" id="filtro-documento-codigo" class="form-control form-control-sm" placeholder="Nro de documento...">
+              <div class="button-container" data-toggle="tooltip" data-placement="top" data-original-title="B&uacute;squeda avanzada">
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-documentos"><i class="icon-search"></i></button>
+              </div>
+            </div>
+            <!-- Buscar cliente -->
+            <div class="col-xl-2 col-12 filter-group">
+              <input type="text" id="filtro-cliente" class="form-control form-control-sm" placeholder="DOI del cliente...">
+              <div class="button-container" data-toggle="tooltip" data-placement="top" data-original-title="B&uacute;squeda avanzada">
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-clientes"><i class="icon-search"></i></button>
+              </div>
+            </div>
+            <!-- Filtrar por Fecha de Emisión -->
+            <div class="col-lg-2 col-sm-10 col-4">
+              <input type="text" id="filtro-emision-desde" class="form-control form-control-sm datetimepicker-input" placeholder="Emisión desde..." data-toggle="datetimepicker">
+            </div>
+            <div class="col-lg-2 col-sm-10 col-4">
+              <input type="text" id="filtro-emision-hasta" class="form-control form-control-sm datetimepicker-input" placeholder="Emisión hasta...">
+            </div>
+          </div>
+        </form>
+        <button class="btn btn-sm btn-dark btn-block" id="filter-button">Ver filtros</button>
+        <!-- Listado de documentos -->
+        <div class="row">
+          <div class="search-results listado-documentos col-md-4">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="mb-0"> Listado de documentos</h5>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Factura: </strong>
+                    <span class="nro-doc">F01-0000000001</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.1000.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">14/02/2018 - 20:50</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Boleta: </strong>
+                    <span class="nro-doc">B01-0000000001</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.1300.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">14/02/2018 - 20:55</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Factura: </strong>
+                    <span class="nro-doc">F01-0000000002</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.3400.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">14/02/2018 - 21:20</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Factura: </strong>
+                    <span class="nro-doc">F01-0000000003</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.1100.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">15/02/2018 - 08:20</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Boleta: </strong>
+                    <span class="nro-doc">B01-0000000002</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.343.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">15/02/2018 - 10:10</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Boleta: </strong>
+                    <span class="nro-doc">B01-0000000003</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.100.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">15/02/2018 - 11:50</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="d-inline-block">
+                    <strong class="tipo-doc"> Boleta: </strong>
+                    <span class="nro-doc">B01-0000000004</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Importe: </strong>
+                    <span class="importe">S/.110.00</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Cliente: </strong>
+                    <span class="cliente">QTC S.A.C</span>
+                    <span class="separator">|</span>
+                  </div>
+                  <div class="d-inline-block">
+                    <strong> Fecha - Hora: </strong>
+                    <span class="fecha-hora">15/02/2018 - 12:22</span>
+                    <span class="separator">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="entry-navigation">
+              <div class="column text-left">
+                <a class="btn btn-outline-secondary btn-sm" href="#">
+                  <i class="icon-arrow-left"></i>
+                  Anterior
+                </a>
+              </div>
+              <div class="column text-right">
+                <a class="btn btn-outline-secondary btn-sm" href="#">
+                  <i class="icon-arrow-right"></i>
+                  Siguiente
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="search-results col-md-8">
+            <div class="row">
+              <div class="col align-self-center" id="detalle-venta">
+                <h5 class="mb-0"> Detalle</h5>
+                <strong class="tipo-doc"> Boleta: </strong>
+                <span class="nro-doc">01-0000001</span>
+                <span class="separator">|</span>
+                <strong> Fecha - Hora: </strong>
+                <span class="fecha-hora">14/02/2018 - 20:40</span>
+                <span class="separator">|</span>
+                <strong> Caja: </strong>
+                Caja 1
+                <span class="separator">|</span>
+                <strong> Cliente: </strong>
+                <span class="cliente">QTC S.A.C</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="card-text">
+                    <div class="d-inline-block">
+                      <strong> Código Articulo: </strong>
+                      C0001
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Nombre Articulo: </strong>
+                      Nombre del articulo C0001
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Cantidad: </strong>
+                      20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Unidad de Medida: </strong>
+                      UM
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Precio unitario: </strong>
+                      S/. 20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Subtotal: </strong>
+                      S/. 400
+                      <span class="separator">|</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="card-text">
+                    <div class="d-inline-block">
+                      <strong> Código Articulo: </strong>
+                      C0002
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Nombre Articulo: </strong>
+                      Nombre del articulo C0002
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Cantidad: </strong>
+                      20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Unidad de Medida: </strong>
+                      UM
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Precio unitario: </strong>
+                      S/. 12
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Subtotal: </strong>
+                      S/. 240
+                      <span class="separator">|</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="card-text">
+                    <div class="d-inline-block">
+                      <strong> Código Articulo: </strong>
+                      C0001
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Nombre Articulo: </strong>
+                      Nombre del articulo C0001
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Cantidad: </strong>
+                      20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Unidad de Medida: </strong>
+                      UM
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Precio unitario: </strong>
+                      S/. 20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Subtotal: </strong>
+                      S/. 400
+                      <span class="separator">|</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <div class="col details-col">
+                  <div class="card-text">
+                    <div class="d-inline-block">
+                      <strong> Código Articulo: </strong>
+                      C0001
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Nombre Articulo: </strong>
+                      Nombre del articulo C0001
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Cantidad: </strong>
+                      20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Unidad de Medida: </strong>
+                      UM
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Precio unitario: </strong>
+                      S/. 20
+                      <span class="separator">|</span>
+                    </div>
+                    <div class="d-inline-block">
+                      <strong> Subtotal: </strong>
+                      S/. 400
+                      <span class="separator">|</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="entry-navigation">
+              <div class="column text-left">
+                <a class="btn btn-outline-secondary btn-sm" href="#">
+                  <i class="icon-arrow-left"></i>
+                  Anterior
+                </a>
+              </div>
+              <div class="column text-right">
+                <a class="btn btn-outline-secondary btn-sm" href="#">
+                  <i class="icon-arrow-right"></i>
+                  Siguiente
+                </a>
+              </div>
+            </div>
+            <div class="row resumen-block">
+              <div class="search-results col-md-6">
+                <div class="row">
+                  <div class="col align-self-center">
+                    <h5 class="mb-0"> Resumen</h5>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="row">
+                    <div class="col details-col" id="resumen">
+                      <div class="card-text">
+                        <strong> Subtotal: </strong>
+                        <span class="resumen-subtotal">
+                        S/.982.00
+                        </span>
+                      </div>
+                      <div class="card-text">
+                        <strong> IGV: </strong>
+                        <span class="resumen-igv">
+                        S/.18.00
+                        </span>
+                      </div>
+                      <div class="card-text">
+                        <strong> Otros impuestos: </strong>
+                        <span class="resumen-otros">
+                        S/.0.00
+                        </span>
+                      </div>
+                      <div class="card-text">
+                        <strong> Total Venta: </strong>
+                        <span class="resumen-total-venta">
+                        S/.1000.00
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 text-center" style="margin-top: 50px">
+                <button class="btn btn-sm btn-primary" id="seleccionar-pendiente-despacho">
+                  Seleccionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Boton para volver arriba -->
+    <a class="scroll-to-top-btn" href="#">
+      <i class="icon-arrow-up"></i>
+    </a>
+    <!-- Backdrop -->
+    <div class="site-backdrop"></div>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script type="text/javascript" src="js/third-party/vendor.min.js"></script>
+    <script type="text/javascript" src="js/third-party/scripts.min.js"></script>
+    <script type="text/javascript" src="js/third-party/moment.min.js"></script>
+    <script type="text/javascript" src="js/third-party/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="js/third-party/accounting.min.js"></script>
+    <script type="text/javascript" src="js/utilidades.js"></script>
+    <script type="text/javascript" src="js/ventas2.js"></script>
+    <script type="text/javascript" src="js/listado-ventas.js"></script>
+    <script type="text/javascript" src="js/pendiente-despacho.js"></script>
+  </body>
+</html>

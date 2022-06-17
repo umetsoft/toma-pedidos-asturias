@@ -1,0 +1,582 @@
+/*
+ * Menu
+ */
+
+.navbar {
+	min-height: 70px;
+}
+.navbar-title {
+	position: absolute;
+	margin: 16px;
+	line-height: 35px;
+}
+.navbar-title.with-menu {
+	left: 74px;
+	white-space: nowrap;
+}
+@media screen and (max-width: 575.98px) {
+	.navbar-title.with-menu {
+		left: 56px;
+	}
+}
+
+/*
+ * Contenedores
+ */
+
+.container, .container-fluid {
+	padding: 1rem;
+}
+.container-fluid.with-footer {
+	padding-bottom: 11rem;
+}
+@media screen and (min-width: 992px) {
+	.container-fluid.with-footer {
+		padding-bottom: 6rem;
+	}
+}
+/* Interaccion del contenido con el menu desplegable */
+.offcanvas-wrapper {
+	min-height: calc(100vh - 70px);
+}
+
+/*
+ * Columnas
+ */
+
+.col-five {
+	-ms-flex: 0 0 20%;
+	flex: 0 0 20%;
+	max-width: 20%;
+}
+@media screen and (min-width: 992px) {
+	.col-lg-five {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+}
+
+@media screen and (min-width: 1366px) {
+	.col-xxl-five {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+}
+
+/*
+ * Botones
+ */
+
+.btn {
+	border-radius: 4px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.btn-dark {
+	background-color: #374250;
+	color: #ffffff;
+}
+.btn-dark:hover {
+	background-color: #272a30;
+	color: #ffffff;
+}
+.btn-outline-dark {
+	background-color: #ffffff;
+	border-color: #606975;
+	color: #374250;
+}
+.btn-outline-dark:hover {
+	background-color: #374250;
+	color: #ffffff;
+}
+
+.tooltip {
+	z-index: 10000;
+}
+
+/*
+ * Formularios de busqueda
+ */
+
+.form-group {
+	margin-bottom: 0rem !important;
+}
+.form-group label {
+	padding-left: 0;
+	margin-bottom: 0.25rem;
+}
+.form-group.row > label {
+	padding-left: 0.5rem;
+	width: 100%;
+}
+.form-group > div {
+	margin-bottom: 0.5rem;
+	/* Copiado de align-self-center */
+	-ms-flex-item-align: center;
+	align-self: center;
+}
+.form-control {
+	border-radius: 4px;
+}
+
+/* Selects con placeholders */
+select:invalid {
+	color: #9da9b9;
+}
+select > option[disabled] {
+	display: none;
+}
+
+/* Inputs tipo numero y fecha sin spinners */
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+/* Placeholder a la izquierda en input con texto a la derecha */
+input.text-right::placeholder {
+	text-align: left;
+}
+input.text-right::-webkit-input-placeholder {
+	text-align: left;
+}
+input.text-right:-ms-input-placeholder {
+	text-align: left;
+}
+
+/*
+ * Inicio de sesion
+ */
+
+.login-box {
+	background-color: #ffffff;
+	border-radius: 4px;
+	padding: 0 1rem 1rem 1rem;
+}
+.login-box .login-title {
+	background-color: #e6f8ff;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #0da9ef;
+	font-weight: bold;
+	margin: 0 -1rem 1rem -1rem;
+	padding: 1rem;
+	text-align: center;
+}
+#login-password {
+	padding-right: 82px;
+}
+.login-box .form-group {
+	margin-bottom: 1rem !important;
+}
+
+/*
+ * Toolbar de usuario
+ */
+
+.toolbar .account {
+	background-color: #ffffff;
+	border-radius: 22px;
+	padding: 0 16px;
+	width: auto;
+}
+.toolbar .account > .account-label {
+	display: none;
+	font-size: 14px;
+	margin-top: 2px;
+	margin-left: 3px;
+	vertical-align: middle;
+}
+.toolbar .account > .toolbar-dropdown {
+	left: auto;
+	right: 0;
+	width: 260px;
+}
+@media screen and (min-width: 768px) {
+	.toolbar .account > .account-label {
+		display: inline-block;
+	}
+}
+
+/*
+ * Filtros de busqueda
+ */
+
+.search-box {
+	background-color: #f5f5f5;
+	display: none;
+	margin-bottom: 0.5rem;
+	padding: 0.5rem 0.5rem 0 0.5rem;
+}
+#filter-button {
+	margin-bottom: 0.5rem;
+}
+@media screen and (min-width: 768px) {
+	.search-box {
+		display: block !important;
+	}
+	#filter-button {
+		display: none;
+	}
+}
+
+/*
+ * Tarjetas de resultados de la busqueda
+ */
+
+.search-results .header-text {
+	-ms-flex-item-align: center;
+	align-self: center;
+	padding-right: 0;
+	margin-bottom: 0.25rem;
+}
+@media screen and (min-width: 576px) {
+	.search-results .header-text {
+		margin-bottom: 0;
+	}
+}
+
+.search-results .header-buttons {
+	-ms-flex-item-align: center;
+	align-self: center;
+	padding-left: 0;
+}
+
+.search-results .card {
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+}
+.search-results .card:first-child {
+	margin-top: 0;
+}
+
+/* Titulos */
+.card h5 {
+	margin-bottom: 0.25rem;
+}
+.card h6 {
+	font-weight: bold;
+	margin-bottom: 0rem;
+}
+
+/* Separador */
+.separator {
+	color: #e0e0e0;
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+}
+
+/*
+ * Columnas de checkbox, detalles y botones
+ */
+
+.checkbox-col {
+	padding-right: 0;
+}
+.checkbox-col .custom-control {
+	margin-bottom: 0 !important;
+}
+
+.details-col {
+	text-align: justify;
+	/* Copiado de align-self-center */
+	-ms-flex-item-align: center;
+	align-self: center;
+}
+.details-col:not(:last-child) {
+	margin-bottom: 0.25rem;
+}
+.details-col:not(:first-child) {
+	padding-left: 0;
+}
+
+.buttons-col {
+	-ms-flex-item-align: center;
+	align-self: center;
+	text-align: right;
+}
+.buttons-col .btn {
+	margin-right: 0;
+	margin-left: 12px;
+}
+
+@media screen and (min-width: 992px) {
+	.details-col:not(:last-child) {
+		padding-right: 0;
+		margin-bottom: 0;
+	}
+	.buttons-col {
+		padding-left: 0;
+	}
+}
+
+/*
+ * Layout tipo cuadrícula (grid)
+ */
+
+.grid {
+	margin: 0 -0.25rem;
+}
+
+.grid .cell {
+	position: relative;
+	margin-bottom: 0.5rem;
+	padding-bottom: 4rem;
+}
+.grid .cell.col-five {
+	margin-bottom: 0;
+}
+.grid .cell.col-4 {
+	padding-bottom: 25%;
+}
+@media screen and (min-width: 992px) {
+	.grid .cell.col-lg-five {
+		padding-bottom: 15%;
+	}
+}
+
+.grid .square {
+	background-color: #f5f5f5;
+	border: 1px #e1e7ec solid;
+	top: 0;
+	bottom: 0;
+	left: 0.25rem;
+	right: 0.25rem;
+	position: absolute;
+}
+.grid .square.bg-primary {
+	border-color: #0c98d7;
+	color: #ffffff;
+}
+.grid .square.bg-dark {
+	border-color: #272a30;
+	color: #ffffff;
+	font-weight: bold;
+}
+.grid .square.bg-success {
+	border-color: #42bd91;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.grid .d-table {
+	height: 100%;
+	width: 100%;
+}
+.grid .d-table-cell {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+/*
+ * Tarjetas de busqueda de cajas
+ */
+
+.card-small-text, .card-subtitle {
+	font-size: 12px;
+}
+.card-subtitle {
+	font-weight: bold;
+	width: 92px;
+	margin: 0;
+}
+@media screen and (min-width: 576px) {
+	.card-small-text, .card-subtitle {
+		font-size: 14px;
+	}
+	.card-subtitle {
+		width: 108px;
+	}
+	.card-large-text {
+		font-size: 16px;
+	}
+}
+
+/*
+ * Spinners para el detalle de solicitud
+ */
+
+.spinner-input {
+	display: inline;
+	font-weight: bold;
+	margin-left: 1rem;
+	vertical-align: middle;
+}
+.spinner-input input, .spinner-input button {
+	display: inline;
+	background-color: #ffffff;
+	border: 1px #e1e7ec solid;
+	border-radius: 4px;
+	height: 1.75rem;
+	vertical-align: middle;
+}
+.spinner-input input {
+	font-size: 0.875rem;
+	text-align: right;
+	width: 4rem;
+	padding: 0 0.5rem;
+}
+.spinner-input input::placeholder {
+	color: #9da9b9;
+}
+
+/*
+ * Reloj
+ */
+
+.clock {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.125rem;
+	vertical-align: middle;
+}
+
+/*
+ * Botones junto a un input en los filtros
+ */
+
+.filter-group .form-control {
+	padding-right: 4rem;
+}
+.filter-group .button-container {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	right: -0.25rem;
+}
+.filter-group .btn {
+	border-color: #dbe2e8;
+}
+.form-control:focus + .button-container .btn {
+	border-color: #0da9ef;
+}
+
+.filter-group .button-container.with-label {
+  top: 25px; 
+}
+
+
+/*
+ * Footer pegado al final de la pagina
+ */
+
+.footer-stuck {
+	background-color: #ffffff;
+	border-top: 1px solid #e1e7ec;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 0.5rem 1rem 0;
+}
+
+.footer-stuck .form-control {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+/*
+ * Paginado
+ */
+
+.entry-navigation {
+	border: none;
+}
+.entry-navigation > .column {
+	padding-top: 0.5rem;
+	padding-bottom: 0;
+}
+
+/*
+ * Estilos para vista de pagos
+ */
+.btn-pago {
+	min-width: 100%;
+	font-size: 2rem;
+        top: 11px;
+
+}
+
+.btn-pago-text {
+	font-size: 1rem;
+}
+
+.btn-pago i {
+	padding-bottom: 6px;
+}
+
+
+@media screen and (min-width: 576px) {
+  .card-item {
+    display: inline-block;
+  }
+  .separator {
+    display: inline;
+  }
+}
+
+
+
+/* Tarjeta seleccionada */
+.card-selected{
+  background-color: #e6f8ff; !important
+  border-color: #e6f8ff; !important
+}
+
+/* Segundo boton en input */
+.filter-group .button-container.with-label {
+}
+
+.filter-group .button-container.with-label.second-button {
+  right: 3.00rem;
+}
+
+.tienda {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.125rem;
+	vertical-align: middle;
+        width: 100px;
+}
+
+.clock {
+  width: 100px;
+}
+
+
+.form-control-danger {
+  border-color: #ff5252;
+  color: #ff5252;
+}
+
+
+.resumen-block span {
+  float: right;
+}
+
+.resumen-block {
+  margin-top: 5px;
+}
+
+
+/* Botones footer */
+.botones-1 {
+  width: 100%;
+}
+
+.botones-2 {
+  width: 100%;
+}
+
+.botones-3 {
+  width: 100%;
+}
+
+
+
